@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+    
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
@@ -40,5 +40,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
     Route::get('home', [
         'as'    => 'user.home',
         'uses'  => 'UserController@index'
+    ]);
+
+    Route::get('createTicket', [
+        'as'    => 'user.createTicket',
+        'uses'  => 'UserController@createTicket'
     ]);
 });

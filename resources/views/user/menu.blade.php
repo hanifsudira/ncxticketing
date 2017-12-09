@@ -6,10 +6,16 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
+            <li class="active-pro">
+                <a href="{{route('user.createTicket')}}">
+                    <i class="material-icons">unarchive</i>
+                    <p>CREATE TICKET</p>
+                </a>
+            </li>
             <li>
                 <a href="dashboard.html">
                     <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+                    <p>DASHBOARD</p>
                 </a>
             </li>
             <li>

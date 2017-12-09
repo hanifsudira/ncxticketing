@@ -9,7 +9,7 @@
             <li>
                 <a href="dashboard.html">
                     <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
+                    <p>DASHBOARD</p>
                 </a>
             </li>
             <li>

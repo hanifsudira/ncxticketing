@@ -22,4 +22,8 @@ class UserController extends Controller
         //$data = auth()->user()->role;
         //var_dump($data);
     }
+
+    public function createTicket(){
+        return view('user.createTicket');
+    }
 }
