@@ -114,12 +114,6 @@ class UserController extends Controller
             $temp['status']   = array_key_exists($value->id, $dict) ? $dict[$value->id][1] :  $value->status;
             array_push($data, $temp);
         }
-        //var_dump($data);
-        // foreach ($temp as  $value) {
-        //     if($arr[$value["id"]]){
-        //         $value["assignee"] = $arr[$value["id"]]["assignee"];
-        //     }
-        // }
         return Datatables::of($data)->make(true);    
     }
 
