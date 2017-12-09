@@ -65,14 +65,62 @@ class UserController extends Controller
     // fungsi transfer tiket: eskalasi, request complete, return to user
     public function transferTicket(Request $req){
         $now = new DateTime();
+        $temp_ticket = new Ticket();
 
-        $temp_action = $req->action;
-        $temp_action = $req->action;
+        $temp_root_author = getAuthor($req->id_ticket); //*
+
+        // penentuan assignee
+        if($req->next_action == "Moban"){
+            $temp_ticket->assignee = $req->next_assignee;
+        }else{
+            $temp_ticket->assignee = $temp_root_author;
+        }
+
+        // persiapan simpan tiket
+        $temp_ticket->konten = $req->next_konten;
+        $temp_ticket->no_order = null;
+        $temp_ticket->segmen = null;
+        $temp_ticket->author = Auth::user()->id;
+        
+        $temp_ticket->tanggal = $now->format('Y-m-d H:i:s'); 
+        $temp_ticket->action = $req->next_action;
+        $temp_ticket->status = "Pending";
+        $temp_ticket->url_gambar = null;
+        $temp_ticket->is_root = "N";
+        $temp_ticket->id_root = $req->id_root;
+        $temp_ticket->tanggal_complete = null;
+        $temp_ticket->prev_ticket = $req->id_ticket;
+        $temp_ticket->detail_order = $req->next_detail_order;
+        $temp_ticket->id_jenis = $req->next_id_jenis;
+
+        // action ke tiket sebelumnya
+        if($temp_ticket->save()){
+            if($req->is_intervensi){
+                updateStatusTicket($req->id_ticket, "Cancelled", null);
+            }else{
+                updateStatusTicket($req->id_ticket, "Escalated", null);
+            }
+        }
+    }
+
+    // update status ticket
+    public function updateStatusTicket($id_ticket, $vals, $comp_date){
+        $temp_ticket = DB::statement("update tiket set status = '".$vals."', tanggal_complete = '".$comp_date."' where id = '".$id_ticket."'");
+        return $temp_ticket;
     }
 
     // mendapatkan id author dari sebuah tiket manapun
     public function getAuthor($id_ticket){
 
+        $temp_ticket = DB::select("select * from tiket where id = '".$id_ticket."'");
+
+        if($temp_ticket[0]->is_root == "Y"){
+            $temp_root = $temp_ticket;
+        }else{
+            $temp_root = DB::select("select * from tiket where id = '".$temp_ticket[0]->id_root."'");    
+        }
+
+        return $temp_root[0]->author;
     }
 
     // mendapatkan status pengerjaan sebuah tiket root
@@ -85,6 +133,19 @@ class UserController extends Controller
     public function getRootAssignee($id_ticket){
         $temp_ticket = DB::select("select * from tiket where (id = '".$id_ticket."' or id_root='".$id_ticket."') and (status='Pending' or status='In Progress')");
         return $temp_ticket[0]->assignee;
+    }
+
+    // fungsi menutup tiket
+    public closeTicket(Request $req){
+        $now = new DateTime();
+
+        if($req->action == "Pending Complete"){
+            updateStatusTicket($req->id_ticket, "Complete", null);
+            updateStatusTicket($req->id_root, "Complete", $now->format('Y-m-d H:i:s'));
+        }else if($req->action == "Return to User"){
+            updateStatusTicket($req->id_ticket, "Complete", null);
+            updateStatusTicket($req->id_root, "Returned", $now->format('Y-m-d H:i:s'));
+        }
     }
 
     public function myTicket(){
