@@ -123,6 +123,8 @@ class UserController extends Controller
         return $temp_root[0]->author;
     }
 
+    // cek satu dua tiga
+
     // mendapatkan status pengerjaan sebuah tiket root
     public function getRootStatus($id_ticket){
         $temp_ticket = DB::select("select * from tiket where (id = '".$id_ticket."' or id_root='".$id_ticket."') and (status='Pending' or status='In Progress')");
