@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ticket,App\User;
-use Auth;
+use Auth,DB;
 
 class UserController extends Controller
 {
@@ -25,7 +25,7 @@ class UserController extends Controller
     }
 
     public function createTicket(){
-        $user = User::all();#where('role',2);
+        $user = User::all();
         return view('user.createTicket', ['user' => $user]);
     }
 
@@ -67,6 +67,7 @@ class UserController extends Controller
     }
 
     public function myTicket(){
-        echo 'myTicket';
+        $data = DB::select('select * from users');
+        var_dump($data[0]->id);
     }
 }

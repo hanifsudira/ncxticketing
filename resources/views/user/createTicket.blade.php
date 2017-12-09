@@ -51,7 +51,10 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Create</button>
-                        <button class="btn btn-info pull-right">Cancel</button>
+                        <a href="{{ Route('user.home') }}">
+                            <button class="btn btn-info pull-right" >Cancel</button>
+                        </a>
+  
                         <div class="clearfix"></div>
                         {{ csrf_field() }}
                     </form>

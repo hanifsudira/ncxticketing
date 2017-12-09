@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('admin.kelolajenis')}}">
+                <a href="{{route('user.myTicket')}}">
                     <i class="material-icons">library_books</i>
                     <p>MY TICKET</p>
                 </a>
