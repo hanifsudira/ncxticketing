@@ -60,6 +60,11 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
     Route::get('getMyTicket', [
         'as'    => 'user.getMyTicket',
         'uses'  => 'UserController@getMyTicket'
-    ]);    
+    ]); 
+
+    Route::get('viewTicket/{id_root}', [
+        'as'    => 'user.viewTicket',
+        'uses'  => 'UserController@viewTicket'
+    ]);  
 
 });

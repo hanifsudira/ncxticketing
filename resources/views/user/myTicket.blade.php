@@ -1,5 +1,5 @@
 @extends('dashboard.app')
-@section('title', 'Homepage')
+@section('title', 'My Ticket')
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -16,6 +16,7 @@
                             <th>Detail Order</th>
                             <th>Assign To</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                         </tbody>
@@ -39,7 +40,8 @@
                     { data: 'segmen',name: 'segmen'},
                     { data: 'konten',name: 'konten'},
                     { data: 'assignee',name: 'assignee'},
-                    { data: 'status',name: 'status'}
+                    { data: 'status',name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
         });

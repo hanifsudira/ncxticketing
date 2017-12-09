@@ -68,7 +68,7 @@ class UserController extends Controller
 
     // fungsi transfer tiket: eskalasi, request complete, return to user
     public function transferTicket(Request $req){
-        $now = new DateTime();
+        $now = new \DateTime();
         $temp_ticket = new Ticket();
 
         $temp_root_author = getAuthor($req->id_ticket); //*
@@ -142,8 +142,8 @@ class UserController extends Controller
     }
 
     // fungsi menutup tiket
-    public closeTicket(Request $req){
-        $now = new DateTime();
+    public function closeTicket(Request $req){
+        $now = new \DateTime();
 
         if($req->action == "Pending Complete"){
             updateStatusTicket($req->id_ticket, "Complete", null);
@@ -159,7 +159,7 @@ class UserController extends Controller
     }
 
     public function getMyTicket(){
-        $temp_dict = DB::select("select t1.id_root, t2.name, t1.status from tiket t1 left join users t2 on t2.id = t1.assignee where (status='Pending' or status='In Progress') and is_root = 'N'");
+        $temp_dict = DB::select("select t1.id_root, t2.name, t1.status from tiket t1 left join users t2 on t2.id = t1.assignee where (status <> 'Complete') and is_root = 'N'");
         $dict = array();
         foreach ($temp_dict as $value) {
                 $dict[$value->id_root] = [$value->name,$value->status];
@@ -170,15 +170,31 @@ class UserController extends Controller
         $data = array();
         foreach ($temp_ticket as $value) {
             $temp = array();
+            $temp['id']       = $value->id;
             $temp['no_order'] = $value->no_order;
             $temp['segmen']   = $value->segmen;
             $temp['konten']   = $value->konten;
             $temp['assignee'] = array_key_exists($value->id, $dict) ? $dict[$value->id][0] :  $value->name;
             $temp['status']   = array_key_exists($value->id, $dict) ? $dict[$value->id][1] :  $value->status;
+            $temp['id_root']  = $value->id_root;
             array_push($data, $temp);
         }
-        return Datatables::of($data)->make(true);    
+        return Datatables::of($data)
+            ->addColumn('action', function ($tiket) {
+                return '<a href="'.route('user.viewTicket',$tiket['id']."+".$tiket['id_root']).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>View</a>';
+            })
+            ->make(true);
     }
 
+    public function viewTicket($param){
+        $temp = explode("+", $param);
+        $id = $temp[0];
+        $id_root = $temp[1];
+
+        $root_author = $this->getAuthor($id);
+
+        $ticket = DB::select("select t1.*, t2.name as namauser, t3.nama as jenis, t4.name as derror from tiket t1 left join users t2 on t2.id = t1.assignee left join jenis t3 on t3.id = t1.id_jenis left join detail_error t4 on t4.id = t1.detail_error where id_root = '".$id_root."' order by tanggal asc");
+        return view('user.viewTicket',['ticket' => $ticket, 'root_author' => $root_author]);
+    }
     
 }
