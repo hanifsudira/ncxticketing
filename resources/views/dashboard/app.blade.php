@@ -16,7 +16,11 @@
 </head>
 <body>
     <div class="wrapper">
-        @include('admin.menu')
+        @if(Auth::user()->role == 1)
+            @include('admin.menu')
+        @else
+            @include('user.menu')
+        @endif
         <div class="main-panel">
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">

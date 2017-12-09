@@ -39,6 +39,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
     Route::get('home', [
         'as'    => 'user.home',
-        'uses'  => 'HomeController@index'
+        'uses'  => 'UserController@index'
     ]);
 });
