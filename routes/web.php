@@ -46,4 +46,15 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
         'as'    => 'user.createTicket',
         'uses'  => 'UserController@createTicket'
     ]);
+
+    Route::get('myTicket', [
+        'as'    => 'user.myTicket',
+        'uses'  => 'UserController@myTicket'
+    ]);
+
+    Route::post('storeTicket', [
+        'as'    => 'user.storeTicket',
+        'uses'  => 'UserController@storeTicket'
+    ]);
+
 });

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Ticket;
-
 use Illuminate\Http\Request;
+use App\Ticket,App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -25,11 +25,13 @@ class UserController extends Controller
     }
 
     public function createTicket(){
-        return view('user.createTicket');
+        $user = User::all();#where('role',2);
+        return view('user.createTicket', ['user' => $user]);
+    }
 
     // fungsi membuat tiket baru
     public function storeTicket(Request $req){
-        $now = new DateTime();
+        $now = new \DateTime();
 
         // assigning
         $temp_ticket = new Ticket();
@@ -37,12 +39,12 @@ class UserController extends Controller
         
         $temp_ticket->konten = $req->konten;
         $temp_ticket->assignee = $req->assignee;
-        $temp_ticket->id_jenis = $req->id_jenis;
         $temp_ticket->no_order = $req->no_order;
         $temp_ticket->segmen = $req->segmen;
-        $temp_ticket->author = $req->author;
+        $temp_ticket->author = Auth::user()->id;
         
-        $temp_ticket->tanggal = $now->getTimestamp();
+        $temp_ticket->tanggal = $now->format('Y-m-d H:i:s'); 
+        $temp_ticket->action = "Moban";
         $temp_ticket->status = "Pending";
         $temp_ticket->url_gambar = null;
         $temp_ticket->is_root = "Y";
@@ -50,14 +52,21 @@ class UserController extends Controller
         $temp_ticket->tanggal_complete = null;
         $temp_ticket->prev_ticket = null;
         $temp_ticket->detail_order = null;
+        $temp_ticket->id_jenis = null;
 
         // save to db
-        return $temp_ticket->save() ? TRUE : FALSE;
+        #return $temp_ticket->save() ? TRUE : FALSE;
+        if($temp_ticket->save()){
+            return redirect('user/myTicket');
+        } 
     }
 
     // fungsi transfer tiket: eskalasi, request complete, return to user
     public function transferTicket(){
-        $now = new DateTime();
-    //     
+        $now = new DateTime();   
+    }
+
+    public function myTicket(){
+        echo 'myTicket';
     }
 }
