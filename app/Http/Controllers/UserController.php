@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ticket,App\User;
 use Auth;
+use DB;
 
 class UserController extends Controller
 {
@@ -62,8 +63,28 @@ class UserController extends Controller
     }
 
     // fungsi transfer tiket: eskalasi, request complete, return to user
-    public function transferTicket(){
-        $now = new DateTime();   
+    public function transferTicket(Request $req){
+        $now = new DateTime();
+
+        $temp_action = $req->action;
+        $temp_action = $req->action;
+    }
+
+    // mendapatkan id author dari sebuah tiket manapun
+    public function getAuthor($id_ticket){
+
+    }
+
+    // mendapatkan status pengerjaan sebuah tiket root
+    public function getRootStatus($id_ticket){
+        $temp_ticket = DB::select("select * from tiket where (id = '".$id_ticket."' or id_root='".$id_ticket."') and (status='Pending' or status='In Progress')");
+        return $temp_ticket[0]->status;
+    }
+
+    // mendapatkan assignee pengerjaan sebuah tiket root
+    public function getRootAssignee($id_ticket){
+        $temp_ticket = DB::select("select * from tiket where (id = '".$id_ticket."' or id_root='".$id_ticket."') and (status='Pending' or status='In Progress')");
+        return $temp_ticket[0]->assignee;
     }
 
     public function myTicket(){
