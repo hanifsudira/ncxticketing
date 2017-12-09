@@ -7,12 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width') }}" />
+    <meta name="viewport" content="width=device-width" />
     <link href="{{ URL::asset('bassets/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('bassets/css/material-dashboard.css?v=1.2.0') }}" rel="stylesheet" />
     <link href="{{ URL::asset('bassets/css/demo.css') }}" rel="stylesheet" />
-    <link href="{{ URL::asset('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <link href='https://cdn.datatables.net/1.10.16/css/dataTables.material.min.css' rel='stylesheet' type='text/css'>
+    @yield('css')
 </head>
 <body>
     <div class="wrapper">
@@ -99,11 +101,13 @@
 <script src="{{ URL::asset('bassets/js/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ URL::asset('bassets/js/bootstrap-notify.js') }}"></script>
 <script src="{{ URL::asset('bassets/js/material-dashboard.js?v=1.2.0') }}"></script>
-<script src="{{ URL::asset('bassets/js/demo.js"></script>
+<script src="{{ URL::asset('bassets/js/demo.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+@yield('js')
 <script type="text/javascript">
     $(document).ready(function() {
         demo.initDashboardPageCharts();
     });
 </script>
-
 </html>
