@@ -35,7 +35,48 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
+<body class="sidebar-mini fixed skin-black" style="height: auto; min-height: 100%;"">
+<div class="wrapper">
+    <header class="main-header">
+        <a href="{{route('home')}}" class="logo">
+            <span class="logo-mini"><b>DIT</b></span>
+            <span class="logo-lg">CRM <b>Dashboard</b></span>
+        </a>
 
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="header">MAIN NAVIGATION</li>
+                    @if(Auth::user()->role == 1)
+                        @include('admin.menu')
+                    @else
+                        @include('user.menu')
+                    @endif
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        @yield('content')
+    </div>
+    <footer class="main-footer">
+        <strong>Made With Love By Divisi IT - <a href="http://telkom.co.id" target="_blank">Telkom Indonesia</a></strong>
+    </footer>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+</body>
 </body>
 <script src="{{ URL::asset('assets/plugins/alertifyjs/alertify.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
