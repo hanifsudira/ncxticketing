@@ -1,4 +1,4 @@
-@extends('dashboard.app')
+@extends('template.app')
 @section('title', 'Homepage')
 @section('content')
 <div class="container-fluid">

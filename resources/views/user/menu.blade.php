@@ -1,4 +1,3 @@
-
 <li class="active treeview menu-open">
     <a href="#">
         <i class="fa fa-dashboard"></i> <span>Menu</span>

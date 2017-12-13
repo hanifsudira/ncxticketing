@@ -1,35 +1,18 @@
-<div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
-    <div class="logo">
-        <a href="#" class="simple-text">
-            NCX Ticketing
-        </a>
-    </div>
-    <div class="sidebar-wrapper">
-        <ul class="nav">
-            <li>
-                <a href="dashboard.html">
-                    <i class="material-icons">dashboard</i>
-                    <p>DASHBOARD</p>
-                </a>
-            </li>
-            <li>
-                <a href="{{route('admin.kelolauser')}}">
-                    <i class="material-icons">person</i>
-                    <p>Kelola User</p>
-                </a>
-            </li>
-            <li>
-                <a href="{{route('admin.kelolajenis')}}">
-                    <i class="material-icons">library_books</i>
-                    <p>Kelola Jenis</p>
-                </a>
-            </li>
-            <li>
-                <a href="./table.html">
-                    <i class="material-icons">content_paste</i>
-                    <p>List Keluhan</p>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+<li class="active treeview menu-open">
+    <a href="#">
+        <i class="fa fa-dashboard"></i> <span>Menu</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+      </span>
+  </a>
+    <ul class="treeview-menu">
+        <li><a href="#"><i class="fa fa-circle-o"></i>Dashboard</a></li>
+        <li><a href="{{route('admin.kelolauser')}}"><i class="fa fa-circle-o"></i>Kelola User</a></li>
+        <li><a href="{{route('admin.kelolajenis')}}"><i class="fa fa-circle-o"></i>Kelola Jenis</a></li>
+        <li><a href="#"><i class="fa fa-circle-o"></i>List Keluhan</a></li>
+        <li class="header">User Menu</li>
+        <li><a href="#"><i class="fa fa-circle-o"></i>To Do List</a></li>
+        <li><a href="{{route('user.myTicket')}}"><i class="fa fa-circle-o"></i>My Tickets</a></li>
+        <li><a href="{{route('user.createTicket')}}"><i class="fa fa-circle-o"></i>Create Ticket</a></li>
+    </ul>
+</li>
