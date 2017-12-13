@@ -35,7 +35,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
-<body class="sidebar-mini fixed skin-black" style="height: auto; min-height: 100%;"">
+<body class="hold-transition fixed skin-black-light sidebar-mini" style="height: auto; min-height: 100%;"">
 <div class="wrapper">
     <header class="main-header">
         <a href="{{route('home')}}" class="logo">

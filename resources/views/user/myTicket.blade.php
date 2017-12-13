@@ -22,7 +22,9 @@
                             <th>Action</th>
                         </thead>
                         <tbody> 
-                        </tbody>              
+                            <tfoot>
+                            </tfoot> 
+                        </tbody>             
                     </table>
                 </div>
             </div>
