@@ -36,6 +36,11 @@
                             </select>
                         </div>
 
+                        <div class="form-group has-feedback">
+                            <label for="exampleInputFile">Input Gambar</label>
+                            <input type="file" name='image' id="exampleInputFile">
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Create</button>
                         <a href="{{ Route('user.home') }}"><button class="btn btn-info pull-right" >Cancel</button></a>
                         <div class="clearfix"></div>

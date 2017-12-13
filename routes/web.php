@@ -67,4 +67,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
         'uses'  => 'UserController@viewTicket'
     ]);  
 
+    Route::get('storage/{fielname}', [
+        'as'    => 'user.storage',
+        'uses'  => 'UserController@storage'
+    ]);
 });

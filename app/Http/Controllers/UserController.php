@@ -6,6 +6,8 @@ use App\Ticket,App\User;
 use Auth,DB;
 use Yajra\Datatables\Datatables;
 use Collection;
+use Storage;
+use File;
 
 class UserController extends Controller
 {
@@ -27,7 +29,7 @@ class UserController extends Controller
     }
 
     public function createTicket(){
-        $user = User::all();
+        $user = User::where('role','=','2')->orderBy('name', 'asc')->get();
         return view('user.createTicket', ['user' => $user]);
     }
 
@@ -53,9 +55,19 @@ class UserController extends Controller
         $temp_ticket->id_root = null;
         $temp_ticket->tanggal_complete = null;
         $temp_ticket->prev_ticket = null;
-        $temp_ticket->detail_order = null;
+        $temp_ticket->detail_error = null;
         $temp_ticket->id_jenis = null;
 
+        //upload image
+        $file = $req->image;
+        if($file){
+            $extension = $file->getClientOriginalExtension();
+            Storage::disk('public')->put((string)(Auth::user()->id).'_'.(string)$now->getTimestamp().'_'.$file->getClientOriginalName(),  File::get($file));
+            $temp_ticket->mime = $file->getClientMimeType();
+            $temp_ticket->original_filename = (string)$now->getTimestamp().'_'.$file->getClientOriginalName();
+            $temp_ticket->filename = $file->getFilename().'.'.$extension;
+        }
+        
         // save to db
         #return $temp_ticket->save() ? TRUE : FALSE;
         if($temp_ticket->save()){
@@ -196,5 +208,4 @@ class UserController extends Controller
         $ticket = DB::select("select t1.*, t2.name as namauser, t3.nama as jenis, t4.name as derror from tiket t1 left join users t2 on t2.id = t1.assignee left join jenis t3 on t3.id = t1.id_jenis left join detail_error t4 on t4.id = t1.detail_error where id_root = '".$id_root."' order by tanggal asc");
         return view('user.viewTicket',['ticket' => $ticket, 'root_author' => $root_author]);
     }
-    
 }
