@@ -1,15 +1,18 @@
-@extends('dashboard.app')
+@extends('template.app')
 @section('title', 'My Ticket')
 @section('content')
-<div class="container-fluid">
+<section class="content-header">
+    <h1>My Ticket</h1>
+</section>
+<section class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header" data-background-color="purple">
-                    <h4 class="title">My Tickets</h4>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Data Table With Full Features</h3>
                 </div>
-                <div class="card-content table-responsive">
-                    <table class="table" id="datatable">
+                <div class="box-body">
+                    <table id="datatable" class="table table-bordered table-striped" width="100%">
                         <thead class="text-primary">
                             <th>No Order</th>
                             <th>Segment</th>
@@ -18,14 +21,14 @@
                             <th>Status</th>
                             <th>Action</th>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody> 
+                        </tbody>              
                     </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
 @section('js')
     <script type="text/javascript">
@@ -41,7 +44,7 @@
                     { data: 'konten',name: 'konten'},
                     { data: 'assignee',name: 'assignee'},
                     { data: 'status',name: 'status'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false}
+                    { data: 'action', name: 'action', orderable: false, searchable: false}
                 ]
             });
         });
